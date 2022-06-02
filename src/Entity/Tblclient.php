@@ -13,7 +13,7 @@ class Tblclient implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $clientId;
+    private $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     private $clientLogin;
@@ -123,7 +123,7 @@ class Tblclient implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = 'ROLE_CLIENT';
 
         return array_unique($roles);
     }

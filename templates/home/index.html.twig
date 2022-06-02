@@ -1,20 +1,103 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Hello ClientUploadsController!
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<div id="container">
+		<h1>Envoi de fichier</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+		<div id="body">
+			<p>veuillez selectionner votre fichier à transferer.</p>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/Joker/Desktop/stage/uploadTranscription/uploadtpn/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/Joker/Desktop/stage/uploadTranscription/uploadtpn/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
-</div>
+			<div
+				id="container">
+				{# {{form(form)}} #}
+				{{form_start(form)}}
+				<div class="row">
+
+					<div class="col">
+						<div id="droparea">
+							<p>Déposez vos fichiers ici</p>
+							<span class="or">ou</span>
+							{{ form_row(form.fichier, { 'id': "uploadFile", 'name': "uploadFile", 'href': "javascript:;"}) }}
+
+						</div>
+
+						{% set _block = block('filelist') %}
+
+						{% if _block is not empty %}
+							<p>ce block n'est pas vide</p>
+						{% endif %}
+						
+								<div class="col">
+									{{ form_label(form.itmTitreLg1, 'titre') }}
+									{{ form_widget(form.itmTitreLg1, { 'id': 'titre' }) }}
+
+								</div>
+								<div class="col">
+									{{form_row(form.itmTxtClientLg1)}}
+								</div>
+								<div class="col">
+									{{form_row(form.itmDate)}}
+
+								</div>
+								<div class="col">
+									{{form_row(form.itmTaille)}}
+								</div>
+
+								<div class="col">
+									{{form_row(form.itmDuree)}}
+								</div>
+								<div class="col">
+									{{ form_label(form.itmATranscrire, 'A transcrire') }}
+									{{ form_widget(form.itmATranscrire) }}
+								</div>
+								<div class="col">
+									{{ form_label(form.itmDeadlineRequise, 'Date de transcription si besoin') }}
+									{{ form_widget(form.itmDeadlineRequise) }}
+								</div>
+								<div class="col">
+									{{ form_label(form.itmFichier, 'chemin fichier') }}
+									{{ form_widget(form.itmFichier) }}
+								</div>
+
+
+					
+						<div>
+
+							{{ form_row(form.valider, { 'id':"upload", 'href':"javascript:;",'class': "btn btn-danger"}) }}
+						</div>
+					</div>
+				</div>
+
+				<div class="col">
+					<input type="hidden" id="file_ext" name="file_ext" value="{{10}}">
+				</div>
+				<div class="col">
+					<div id="console"></div>
+
+				</div>
+
+			</div>
+
+
+			{# {{form_row(form.itmTitreLg1)}} #}
+
+			{{form_end(form)}}
+		</div>
+		<table id="tablelist"></table>
+		<div id="filelist">
+			{% block filelist %}{% endblock %}
+		</div>
+
+
+	</div>
+	<script type="text/javascript">
+
+		BASE_URL = "{{ app.request.getSchemeAndHttpHost() }}";
+	</script>
+	<script src="{{asset('js/plupload.full.min.js')}}"></script>
+	<script type="text/javascript" src="{{asset('js/application.js')}}"></script>
+
 {% endblock %}

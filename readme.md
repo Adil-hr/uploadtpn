@@ -6,7 +6,7 @@ SIte de transfert de fichier et de gestion des taches par les collaborateurs
 
 ### Pré-requis
 
--   PHP 7
+-   PHP 8
 -   Composer
 -   Symfony Cli
 -   nodejs et npm
