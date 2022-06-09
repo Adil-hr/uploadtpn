@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Form\UploadType;
 use App\Entity\Tbltranscriptionupload;
+use DateTime;
+use Doctrine\Common\Collections\Expr\Value;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,21 +17,34 @@ class HomeController extends AbstractController
     public function index(Request $request): Response
     {
         $upload = new Tbltranscriptionupload;
-        $form = $this->createForm(UploadType::class, $upload);
+        $form = $this->createForm(UploadType::class, $upload, ['attr' => ['id' => 'form']]);
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()&&$form->isValid()) {
-            $upload->setTblclient($this->getUser());
-            //$upload-->setItmTitreLg1($this->)
-$upload->setItmType("dox");
-            $upload->setItmATranscrire(false);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($upload);
-            $em->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
+            dump($_REQUEST);
+            dump($this->getUser());
+            dump(pathinfo($form['itmTitreLg1']->getData(), PATHINFO_EXTENSION));
+            dump($form['itmDate']->getData());
+            dump($upload);
+            $dtnow = new DateTime();
+            echo $dtnow->format('Y-m-d H: i: s');
+            $upload->setItmTitreLg1($form['itmTitreLg1']->getData());
+            $upload->setItmType(pathinfo($form['itmTitreLg1']->getData(), PATHINFO_EXTENSION));
+            $upload->setItmDate(new DateTime());
+            // $upload->setItmTaille();
+            // $upload->setItmDuree();
+            // $upload->setItmATranscrire($form['itmATranscrire']->getData());
+            // $upload->setItmDeadlineRequise();
+            // $upload->setTblclient($this->getUser());
+            // $upload->setItmFichier();
+
+            // $em = $this->getDoctrine()->getManager();
+            // $em->persist($upload);
+            // $em->flush();
 
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_upload');
         }
 
         return $this->render('home/index.html.twig', [
@@ -39,21 +54,30 @@ $upload->setItmType("dox");
         ]);
     }
 
-// #[Route("home/upload/ajout", name: "app_upload_ajout")]
-// public function AjoutUpload()
-// {
-//     $upload = new Tbltranscriptionupload;
-//     $form = $this->createForm(UploadType::class, $upload);
+    // #[Route("home/upload/ajout", name: "app_upload_ajout")]
+    // public function AjoutUpload()
+    // {
+    //     $upload = new Tbltranscriptionupload;
+    //     $form = $this->createForm(UploadType::class, $upload);
 
-//         return $this->render('home/index.html.twig', [
-//             'form' => $form->createView(),
-//         ]);
-
-// }
+    //     return $this->render('home/index.html.twig', [
+    //         'form' => $form->createView(),
+    //     ]);
+    // }
 
     #[Route('/uploadtoserver', name: 'app_upload')]
-    public function uploadtoserver()
+    public function uploadtoserver(Request $request): Response
     {
+        //dump($request);
+        //echo $_FILES;
+        // dd($_REQUEST);
+        // print_r($_FILES);
+        //dump($_FILES);
+        // //echo $_REQUEST;
+        // print_r($_REQUEST);
+        //dump($_REQUEST);
+        //echo 'test';
+
         // 5 minutes execution time
         @set_time_limit(5 * 60);
         // Uncomment this one to fake upload time
@@ -82,7 +106,7 @@ $upload->setItmType("dox");
         }
 
         $filePath = $targetDir . DIRECTORY_SEPARATOR . $fileName;
-
+        //echo $filePath . ' test filepath';
         // Chunking might be enabled
         $chunk = isset($_REQUEST["chunk"]) ? intval($_REQUEST["chunk"]) : 0;
         $chunks = isset($_REQUEST["chunks"]) ? intval($_REQUEST["chunks"]) : 0;
@@ -144,9 +168,43 @@ $upload->setItmType("dox");
             rename("{$filePath}.part", $filePath);
         }
 
+
+        dump($_FILES);
+
+        dump($_REQUEST);
+
+        // $fileName;
+        // $details;
+        // $path;
+        // $type;
+        // $size;
+        // $date;
+        // $dateRequise;
+        // $client;
+
+
+        // echo $fileName;
+        // $upload = new Tbltranscriptionupload;
+        // $form = $this->createForm(UploadType::class, $upload);
+        // dump($upload);
+        // $form->handleRequest($request);
+        // //dump($request);
+        // if ($form->isSubmitted() && $form->isValid()) {
+        //     $upload->setTblclient($this->getUser());
+        //     $upload->setItmTitreLg1($this->$fileName);
+        //     $upload->setItmType("dox");
+        //     $upload->setItmATranscrire(false);
+        //     //$em = $this->getDoctrine()->getManager();
+        //     //$em->persist($upload);
+        //     //$em->flush();
+
+
+        //     //return $this->redirectToRoute('app_upload');
+        //     dump($upload);
+        // }
+        // dump($upload);
+
         // Return Success JSON-RPC response
         die('{"jsonrpc" : "2.0", "result" : null, "id" : "id"}');
     }
 }
-
-

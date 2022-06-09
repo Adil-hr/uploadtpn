@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
@@ -26,9 +27,7 @@ class UploadType extends AbstractType
             ->add('itmATranscrire')
             ->add('itmFichier')
             ->add('itmDeadlineRequise', DateType::class)
-            ->add('fichier', ButtonType::class)
-            ->add('valider', SubmitType::class)
-        ;
+            ->add('valider', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

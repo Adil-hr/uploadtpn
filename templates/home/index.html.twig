@@ -1,103 +1,170 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ClientUploadsController!
+{% block title %}Tozscripteurs
 {% endblock %}
 
 {% block body %}
+
+
+<div id="body">
+
+	<p>veuillez selectionner votre fichier à transferer.</p>
+
 	<div id="container">
-		<h1>Envoi de fichier</h1>
 
-		<div id="body">
-			<p>veuillez selectionner votre fichier à transferer.</p>
+		{{form_start(form)}}
+		<div class="row">
+			<div class="col">
 
-			<div
-				id="container">
-				{# {{form(form)}} #}
-				{{form_start(form)}}
-				<div class="row">
+				<h1>Envoi de fichier</h1>
+				<div id="plupload">
+					<div id="dropzone">
+						<p>Déposez vos fichiers ici</p>
+						<span class="or">ou</span>
+						<a href="#" id="browse">Parcourir</a>
+						{# <input type="file" name="fileupload" id="fileinput" onchange="getDuration(this)"> #}
+
+					</div>
+					<div id="filelist"></div>
+					<a href="#" id="upload">Envoyer</a>
+
+				</div>
+
+				{{form(form)}}
+					{# <fieldset disabled="disabled">
+									
+														<div class="col">
+															{{ form_label(form.itmTitreLg1, 'titre') }}
+															{{ form_widget(form.itmTitreLg1, { 'id': 'titre' }) }}
+									
+														</div>
+													</fieldset>
+													<div class="col">
+														{{ form_label(form.itmTxtClientLg1, 'Détails') }}
+														{{form_widget(form.itmTxtClientLg1,{ 'id': 'itmtxtclientlg1' })}}
+									
+													</div>
+													<fieldset disabled="disabled">
+														<div class="col">
+															{{ form_label(form.itmDate, 'Date de l\'envoi') }}
+															
+									
+															{{form_widget(form.itmDate,{ 'id': 'itmdate'}) }}
+									
+														</div>
+													<div class="col">
+														{{form_label(form.itmTaille,'Taille du fichier')}}
+														{{form_widget(form.itmTaille,{ 'id': 'itmtaille' })}}
+									
+													</div>
+									
+													<div class="col">
+														{{form_label(form.itmDuree,'durée du fichier')}}
+														{{form_widget(form.itmDuree,{ 'id': 'itmduree' })}}
+									
+													</div>
+													</fieldset>
+													<div class="col">
+														{{ form_label(form.itmATranscrire, 'A transcrire') }}
+														{{ form_widget(form.itmATranscrire,{ 'id': 'itmatranscrire' })  }}
+									
+													</div>
+													<div class="col">
+														{{ form_label(form.itmDeadlineRequise, 'Date de transcription si besoin') }}
+														{{ form_widget(form.itmDeadlineRequise,{ 'id': 'itmdeadline' }) }}
+									
+													</div>
+													<div class="col">
+														{{ form_label(form.itmFichier, 'chemin fichier') }}
+														{{ form_widget(form.itmFichier,{ 'id': 'itmfichier' }) }}
+									
+													</div>
+									
+									</fieldset>
+													<div>
+									
+														{{ form_row(form.valider, { 'id':"uploadform", 'href':"javascript:;",'class': "btn btn-danger"}) }}
+													</div>
+												</div>
+									
+									
+											</div> #}
 
 					<div class="col">
-						<div id="droparea">
-							<p>Déposez vos fichiers ici</p>
-							<span class="or">ou</span>
-							{{ form_row(form.fichier, { 'id': "uploadFile", 'name': "uploadFile", 'href': "javascript:;"}) }}
-
-						</div>
-
-						{% set _block = block('filelist') %}
-
-						{% if _block is not empty %}
-							<p>ce block n'est pas vide</p>
-						{% endif %}
-						
-								<div class="col">
-									{{ form_label(form.itmTitreLg1, 'titre') }}
-									{{ form_widget(form.itmTitreLg1, { 'id': 'titre' }) }}
-
-								</div>
-								<div class="col">
-									{{form_row(form.itmTxtClientLg1)}}
-								</div>
-								<div class="col">
-									{{form_row(form.itmDate)}}
-
-								</div>
-								<div class="col">
-									{{form_row(form.itmTaille)}}
-								</div>
-
-								<div class="col">
-									{{form_row(form.itmDuree)}}
-								</div>
-								<div class="col">
-									{{ form_label(form.itmATranscrire, 'A transcrire') }}
-									{{ form_widget(form.itmATranscrire) }}
-								</div>
-								<div class="col">
-									{{ form_label(form.itmDeadlineRequise, 'Date de transcription si besoin') }}
-									{{ form_widget(form.itmDeadlineRequise) }}
-								</div>
-								<div class="col">
-									{{ form_label(form.itmFichier, 'chemin fichier') }}
-									{{ form_widget(form.itmFichier) }}
-								</div>
-
-
-					
-						<div>
-
-							{{ form_row(form.valider, { 'id':"upload", 'href':"javascript:;",'class': "btn btn-danger"}) }}
-						</div>
+						<input type="hidden" id="file_ext" name="file_ext" value="{{10}}">
 					</div>
-				</div>
+					<div class="col">
+						<div id="console"></div>
 
-				<div class="col">
-					<input type="hidden" id="file_ext" name="file_ext" value="{{10}}">
-				</div>
-				<div class="col">
-					<div id="console"></div>
+					</div>
 
 				</div>
 
+
+				{# {{form_row(form.itmTitreLg1)}} #}
+
+				{{form_end(form)}}
 			</div>
+			<table id="table"></table>
+			<table id="tablelist"></table>
+			{# <div id="filelist"> {% block filelist %}{% endblock %}
+																</div> </div>#}
+				<script type="text/javascript">
+
+					BASE_URL = "{{ app.request.getSchemeAndHttpHost() }}";
+				</script>
+				<script src="{{asset('js/plupload.full.min.js')}}"></script>
+				<script type="text/javascript" src="{{asset('js/application.js')}}"></script>
+				<script>// const VIDEO = "video",
+// AUDIO = "audio";
+// const uploadApiCall = (file, data = {}) => { // ----- YOUR API CALL CODE HERE -----
+// document.querySelector("#duration").innerHTML = `${
+// data.duration
+// }s`;
+// document.querySelector("#type").innerHTML = data.type;
+// };
+
+// let inputEl = document.querySelector(".fileinput");
+// inputEl.addEventListener("change", (e) => {
+// let fileType = "";
+// let file = inputEl.files[0];
+// console.log(file);
+// let files = inputEl.files;
+// console.log(files);
+// // files.forEach(element => {
+// // 	console.log(file.id);
+// // });
+// if (file.type.startsWith("audio/")) {
+// fileType = AUDIO;
+// } else if (file.type.startsWith("video/")) {
+// fileType = VIDEO;
+// } else {
+// alert("Unsupported file");
+// return;
+// }
 
 
-			{# {{form_row(form.itmTitreLg1)}} #}
+// let dataURL = URL.createObjectURL(file);
+// let el = document.createElement(fileType);
+// el.src = dataURL;
+// el.onloadedmetadata = () => {
+// uploadApiCall(file, {
+// duration: el.duration,
+// type: fileType
+// });
+// };
+// });
 
-			{{form_end(form)}}
-		</div>
-		<table id="tablelist"></table>
-		<div id="filelist">
-			{% block filelist %}{% endblock %}
-		</div>
-
-
-	</div>
-	<script type="text/javascript">
-
-		BASE_URL = "{{ app.request.getSchemeAndHttpHost() }}";
-	</script>
-	<script src="{{asset('js/plupload.full.min.js')}}"></script>
-	<script type="text/javascript" src="{{asset('js/application.js')}}"></script>
-
-{% endblock %}
+// window.URL = window.URL || window.webkitURL;
+//     function getDuration(control) {
+//         var video = document.createElement('video');
+// console.log(control.files);
+//         video.preload = 'metadata';
+//         video.onloadedmetadata = function () {
+//             window.URL.revokeObjectURL(video.src);
+//             alert("Duration : " + video.duration + " seconds");
+//         }
+//         video.src = URL.createObjectURL(control.files[0]);
+//     }
+			</script>
+		{% endblock %}
