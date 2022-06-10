@@ -12,7 +12,7 @@
 
 	<div id="container">
 
-		{{form_start(form)}}
+
 		<div class="row">
 			<div class="col">
 
@@ -29,93 +29,93 @@
 					<a href="#" id="upload">Envoyer</a>
 
 				</div>
+				<form action="" method="post"></form>
+				{# {{form(form)}} #}
+				{# <fieldset disabled="disabled">
+																						
+																											<div class="col">
+																												{{ form_label(form.itmTitreLg1, 'titre') }}
+																												{{ form_widget(form.itmTitreLg1, { 'id': 'titre' }) }}
+																						
+																											</div>
+																										</fieldset>
+																										<div class="col">
+																											{{ form_label(form.itmTxtClientLg1, 'Détails') }}
+																											{{form_widget(form.itmTxtClientLg1,{ 'id': 'itmtxtclientlg1' })}}
+																						
+																										</div>
+																										<fieldset disabled="disabled">
+																											<div class="col">
+																												{{ form_label(form.itmDate, 'Date de l\'envoi') }}
+																												
+																						
+																												{{form_widget(form.itmDate,{ 'id': 'itmdate'}) }}
+																						
+																											</div>
+																										<div class="col">
+																											{{form_label(form.itmTaille,'Taille du fichier')}}
+																											{{form_widget(form.itmTaille,{ 'id': 'itmtaille' })}}
+																						
+																										</div>
+																						
+																										<div class="col">
+																											{{form_label(form.itmDuree,'durée du fichier')}}
+																											{{form_widget(form.itmDuree,{ 'id': 'itmduree' })}}
+																						
+																										</div>
+																										</fieldset>
+																										<div class="col">
+																											{{ form_label(form.itmATranscrire, 'A transcrire') }}
+																											{{ form_widget(form.itmATranscrire,{ 'id': 'itmatranscrire' })  }}
+																						
+																										</div>
+																										<div class="col">
+																											{{ form_label(form.itmDeadlineRequise, 'Date de transcription si besoin') }}
+																											{{ form_widget(form.itmDeadlineRequise,{ 'id': 'itmdeadline' }) }}
+																						
+																										</div>
+																										<div class="col">
+																											{{ form_label(form.itmFichier, 'chemin fichier') }}
+																											{{ form_widget(form.itmFichier,{ 'id': 'itmfichier' }) }}
+																						
+																										</div>
+																						
+																						</fieldset>
+																										<div>
+																						
+																											{{ form_row(form.valider, { 'id':"uploadform", 'href':"javascript:;",'class': "btn btn-danger"}) }}
+																										</div>
+																									</div>
+																						
+																						
+																								</div> #}
 
-				{{form(form)}}
-					{# <fieldset disabled="disabled">
-									
-														<div class="col">
-															{{ form_label(form.itmTitreLg1, 'titre') }}
-															{{ form_widget(form.itmTitreLg1, { 'id': 'titre' }) }}
-									
-														</div>
-													</fieldset>
-													<div class="col">
-														{{ form_label(form.itmTxtClientLg1, 'Détails') }}
-														{{form_widget(form.itmTxtClientLg1,{ 'id': 'itmtxtclientlg1' })}}
-									
-													</div>
-													<fieldset disabled="disabled">
-														<div class="col">
-															{{ form_label(form.itmDate, 'Date de l\'envoi') }}
-															
-									
-															{{form_widget(form.itmDate,{ 'id': 'itmdate'}) }}
-									
-														</div>
-													<div class="col">
-														{{form_label(form.itmTaille,'Taille du fichier')}}
-														{{form_widget(form.itmTaille,{ 'id': 'itmtaille' })}}
-									
-													</div>
-									
-													<div class="col">
-														{{form_label(form.itmDuree,'durée du fichier')}}
-														{{form_widget(form.itmDuree,{ 'id': 'itmduree' })}}
-									
-													</div>
-													</fieldset>
-													<div class="col">
-														{{ form_label(form.itmATranscrire, 'A transcrire') }}
-														{{ form_widget(form.itmATranscrire,{ 'id': 'itmatranscrire' })  }}
-									
-													</div>
-													<div class="col">
-														{{ form_label(form.itmDeadlineRequise, 'Date de transcription si besoin') }}
-														{{ form_widget(form.itmDeadlineRequise,{ 'id': 'itmdeadline' }) }}
-									
-													</div>
-													<div class="col">
-														{{ form_label(form.itmFichier, 'chemin fichier') }}
-														{{ form_widget(form.itmFichier,{ 'id': 'itmfichier' }) }}
-									
-													</div>
-									
-									</fieldset>
-													<div>
-									
-														{{ form_row(form.valider, { 'id':"uploadform", 'href':"javascript:;",'class': "btn btn-danger"}) }}
-													</div>
-												</div>
-									
-									
-											</div> #}
-
-					<div class="col">
-						<input type="hidden" id="file_ext" name="file_ext" value="{{10}}">
-					</div>
-					<div class="col">
-						<div id="console"></div>
-
-					</div>
+				<div class="col">
+					<input type="hidden" id="file_ext" name="file_ext" value="{{10}}">
+				</div>
+				<div class="col">
+					<div id="console"></div>
 
 				</div>
 
-
-				{# {{form_row(form.itmTitreLg1)}} #}
-
-				{{form_end(form)}}
 			</div>
-			<table id="table"></table>
-			<table id="tablelist"></table>
-			{# <div id="filelist"> {% block filelist %}{% endblock %}
-																</div> </div>#}
-				<script type="text/javascript">
 
-					BASE_URL = "{{ app.request.getSchemeAndHttpHost() }}";
-				</script>
-				<script src="{{asset('js/plupload.full.min.js')}}"></script>
-				<script type="text/javascript" src="{{asset('js/application.js')}}"></script>
-				<script>// const VIDEO = "video",
+
+			{# {{form_row(form.itmTitreLg1)}} #}
+
+
+		</div>
+		<table id="table"></table>
+		<table id="tablelist"></table>
+		{# <div id="filelist"> {% block filelist %}{% endblock %}
+																</div> </div>#}
+			<script type="text/javascript">
+
+				BASE_URL = "{{ app.request.getSchemeAndHttpHost() }}";
+			</script>
+			<script src="{{asset('js/plupload.full.min.js')}}"></script>
+			<script type="text/javascript" src="{{asset('js/application.js')}}"></script>
+			<script>// const VIDEO = "video",
 // AUDIO = "audio";
 // const uploadApiCall = (file, data = {}) => { // ----- YOUR API CALL CODE HERE -----
 // document.querySelector("#duration").innerHTML = `${
@@ -166,5 +166,5 @@
 //         }
 //         video.src = URL.createObjectURL(control.files[0]);
 //     }
-			</script>
-		{% endblock %}
+		</script>
+	{% endblock %}

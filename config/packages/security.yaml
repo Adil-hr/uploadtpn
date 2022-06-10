@@ -34,6 +34,7 @@ security:
     access_control:
         - { path: ^/home, roles: ['ROLE_CLIENT'] }
         - { path: ^/uploadtoserver, roles: ['ROLE_CLIENT'] }
+        - { path: ^/ajout, roles: ['ROLE_CLIENT'] }
 
 when@test:
     security:

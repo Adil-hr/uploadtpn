@@ -66,7 +66,6 @@ var datafile = new plupload.Uploader({
 			tableBody.id = 'tbody';
 
 
-
 			let divDur = document.createElement('div');
 			let spanDur = document.createElement('span');
 
@@ -117,11 +116,10 @@ var datafile = new plupload.Uploader({
 				// let details = '<div class="col" ><label for="upload_itmTxtClientLg1" class="required">Détails</label><textarea id="itmtxtclientlg1" name="upload[itmTxtClientLg1]" required="required"></textarea></div>'
 
 
-				// let myform = document.getElementById('form');
-				// myform.innerHTML += formulaire;
+				let myform = document.getElementById('form');
+				let titre = 'input'
 				// document.getElementById('titre').value = file.name;
 				// document.getElementById('itmtaille').value = plupload.formatSize(file.size).substr(' ', plupload.formatSize(file.size).length - 3);
-
 
 
 
