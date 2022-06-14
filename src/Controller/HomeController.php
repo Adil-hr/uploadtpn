@@ -17,65 +17,86 @@ class HomeController extends AbstractController
     public function index()
     {
 
+        // $upload = new Tbltranscriptionupload;
+        // $form = $this->createForm(UploadType::class, $upload, ['attr' => ['id' => 'form']]);
+
+        // $form->handleRequest($request);
+
+        //     if ($form->isSubmitted() && $form->isValid()) {
+        dump($_REQUEST);
+        dump($_FILES);
+        //         dump($this->getUser());
+        //         dump(pathinfo($form['itmTitreLg1']->getData(), PATHINFO_EXTENSION));
+        //         dump($form['itmDate']->getData());
+        //         dump($upload);
+        //         $dtnow = new DateTime();
+        //         echo $dtnow->format('Y-m-d H: i: s');
+        //         $upload->setItmTitreLg1($form['itmTitreLg1']->getData());
+        //         $upload->setItmType(pathinfo($form['itmTitreLg1']->getData(), PATHINFO_EXTENSION));
+        //         $upload->setItmDate(new DateTime());
+        //         // $upload->setItmTaille();
+        //         // $upload->setItmDuree();
+        //         // $upload->setItmATranscrire($form['itmATranscrire']->getData());
+        //         // $upload->setItmDeadlineRequise();
+        //         // $upload->setTblclient($this->getUser());
+        //         // $upload->setItmFichier();
+
+        //         // $em = $this->getDoctrine()->getManager();
+        //         // $em->persist($upload);
+        //         // $em->flush();
+
+
+        //         //return $this->redirectToRoute('app_upload');
+        //     }
+
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
-
+            // 'form' => $form->createView(),
         ]);
     }
 
-    // #[Route("home/ajout", name: "app_upload_ajout")]
-    // public function AjoutUpload(Request $request): Response
-    // {
-    //     $upload = new Tbltranscriptionupload;
-    //     $form = $this->createForm(UploadType::class, $upload, ['attr' => ['id' => 'form']]);
+    #[Route("home/ajout", name: "app_upload_ajout")]
+    public function AjoutUpload(Request $request): Response
+    {
+        dump($_FILES);
+        dump($_REQUEST);
+        $upload = new Tbltranscriptionupload;
+        $form = $this->createForm(UploadType::class, $upload, ['attr' => ['id' => 'form']]);
 
-    //     $form->handleRequest($request);
+        $form->handleRequest($request);
 
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         dump($_REQUEST);
-    //         dump($this->getUser());
-    //         dump(pathinfo($form['itmTitreLg1']->getData(), PATHINFO_EXTENSION));
-    //         dump($form['itmDate']->getData());
-    //         dump($upload);
-    //         $dtnow = new DateTime();
-    //         echo $dtnow->format('Y-m-d H: i: s');
-    //         $upload->setItmTitreLg1($form['itmTitreLg1']->getData());
-    //         $upload->setItmType(pathinfo($form['itmTitreLg1']->getData(), PATHINFO_EXTENSION));
-    //         $upload->setItmDate(new DateTime());
-    //         // $upload->setItmTaille();
-    //         // $upload->setItmDuree();
-    //         // $upload->setItmATranscrire($form['itmATranscrire']->getData());
-    //         // $upload->setItmDeadlineRequise();
-    //         // $upload->setTblclient($this->getUser());
-    //         // $upload->setItmFichier();
+        if ($form->isSubmitted() && $form->isValid()) {
 
-    //         // $em = $this->getDoctrine()->getManager();
-    //         // $em->persist($upload);
-    //         // $em->flush();
+            dump($this->getUser());
+            dump(pathinfo($form['itmTitreLg1']->getData(), PATHINFO_EXTENSION));
+            dump($form['itmDate']->getData());
+            dump($upload);
+            $dtnow = new DateTime();
+            echo $dtnow->format('Y-m-d H: i: s');
+            $upload->setItmTitreLg1($form['itmTitreLg1']->getData());
+            $upload->setItmType(pathinfo($form['itmTitreLg1']->getData(), PATHINFO_EXTENSION));
+            $upload->setItmDate(new DateTime());
+            // $upload->setItmTaille();
+            // $upload->setItmDuree();
+            // $upload->setItmATranscrire($form['itmATranscrire']->getData());
+            // $upload->setItmDeadlineRequise();
+            // $upload->setTblclient($this->getUser());
+            // $upload->setItmFichier();
+
+            // $em = $this->getDoctrine()->getManager();
+            // $em->persist($upload);
+            // $em->flush();
 
 
-    //         //return $this->redirectToRoute('app_upload');
-    //     }
-    //     return $this->render('home/index.html.twig', [
-    //         'controller_name' => 'HomeController',
-    //         'form' => $form->createView(),
-
-    //     ]);
-    // }
+            return $this->redirectToRoute('app_upload');
+        }
+    }
 
     #[Route('/uploadtoserver', name: 'app_upload')]
     public function uploadtoserver()
     {
-        //dump($request);
-        //echo $_FILES;
-        // dd($_REQUEST);
-        // print_r($_FILES);
-        //dump($_FILES);
-        // //echo $_REQUEST;
-        // print_r($_REQUEST);
-        //dump($_REQUEST);
-        //echo 'test';
-
+        dump($_FILES);
+        dump($_REQUEST);
         // 5 minutes execution time
         @set_time_limit(5 * 60);
         // Uncomment this one to fake upload time
@@ -167,21 +188,9 @@ class HomeController extends AbstractController
         }
 
 
-        dump($_FILES);
 
-        dump($_REQUEST);
-
-        //return $this->redirectToRoute('app_upload_ajout');
 
         // Return Success JSON-RPC response
         die('{"jsonrpc" : "2.0", "result" : null, "id" : "id"}');
-
-        $response = $this->forward('App\Controller\AjoutuploaderController', [
-            'name'  => $fileName,
-            'path' => $filePath,
-            'size' => $_FILES['size']
-
-        ]);
-        return $response;
     }
 }

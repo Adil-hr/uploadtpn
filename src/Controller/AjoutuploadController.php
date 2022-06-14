@@ -15,7 +15,7 @@ class AjoutuploadController extends AbstractController
     #[Route('/ajout', name: 'app_ajoutupload')]
     public function index(Request $request): Response
     {
-        echo $fileName;
+
         $upload = new Tbltranscriptionupload;
         $form = $this->createForm(UploadType::class, $upload, ['attr' => ['id' => 'form']]);
 
