@@ -19,10 +19,10 @@ class HomeController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()&&$form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $upload->setTblclient($this->getUser());
             //$upload-->setItmTitreLg1($this->)
-$upload->setItmType("dox");
+            $upload->setItmType("dox");
             $upload->setItmATranscrire(false);
             $em = $this->getDoctrine()->getManager();
             $em->persist($upload);
@@ -39,17 +39,17 @@ $upload->setItmType("dox");
         ]);
     }
 
-// #[Route("home/upload/ajout", name: "app_upload_ajout")]
-// public function AjoutUpload()
-// {
-//     $upload = new Tbltranscriptionupload;
-//     $form = $this->createForm(UploadType::class, $upload);
+    // #[Route("home/upload/ajout", name: "app_upload_ajout")]
+    // public function AjoutUpload()
+    // {
+    //     $upload = new Tbltranscriptionupload;
+    //     $form = $this->createForm(UploadType::class, $upload);
 
-//         return $this->render('home/index.html.twig', [
-//             'form' => $form->createView(),
-//         ]);
+    //         return $this->render('home/index.html.twig', [
+    //             'form' => $form->createView(),
+    //         ]);
 
-// }
+    // }
 
     #[Route('/uploadtoserver', name: 'app_upload')]
     public function uploadtoserver()
@@ -148,5 +148,3 @@ $upload->setItmType("dox");
         die('{"jsonrpc" : "2.0", "result" : null, "id" : "id"}');
     }
 }
-
-
