@@ -25,7 +25,7 @@ class Tbltranscriptionupload
     #[ORM\Column(type: 'string', length: 255)]
     private $itmType;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'string', length: 255)]
     private $itmTaille;
 
     #[ORM\Column(type: 'integer', nullable: true)]
@@ -97,12 +97,12 @@ class Tbltranscriptionupload
         return $this;
     }
 
-    public function getItmTaille(): ?int
+    public function getItmTaille(): ?string
     {
         return $this->itmTaille;
     }
 
-    public function setItmTaille(int $itmTaille): self
+    public function setItmTaille(string $itmTaille): self
     {
         $this->itmTaille = $itmTaille;
 
@@ -138,7 +138,7 @@ class Tbltranscriptionupload
         return $this->itmDeadlineRequise;
     }
 
-    public function setItmDeadlineRequise(?\DateTimeInterface $itmDeadlineRequise): self
+    public function setItmDeadlineRequise($itmDeadlineRequise): self
     {
         $this->itmDeadlineRequise = $itmDeadlineRequise;
 

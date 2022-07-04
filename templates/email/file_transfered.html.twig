@@ -1,0 +1,227 @@
+{% extends 'base.html.twig' %}
+
+
+{% block stylesheets %}
+	<link href="{{ asset('styles/mail.css') }}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+
+	<div class="header">
+		<img src="img/logotransctripteurscom" alt="">
+	</div>
+	{# {{ dump(devis) }} #}
+
+	<div class="container">
+		<div class="row justify-content-around">
+
+			<div class="col-sm-6 top-left">
+				<p>Bonjour</p>
+
+			</div>
+
+			<div class="col-sm-6 top-right">
+				<h3 class="marginright">Devis</h3>
+				<span class="marginright">{{"now"|date("d/m/Y")}}</span>
+			</div>
+		</div>
+
+		<div class="row justify-content-around">
+			<div class="col-xs-4 from">
+				<p class="lead marginbottom">From : Transcripteurs.com</p>
+				<p>59 rue Général de Gaulle</p>
+				<p>57140 Woippy</p>
+				<p>France</p>
+				<p>Phone: 06 27 36 14 40</p>
+				<p>Email: contact@transcripteurs.com</p>
+			</div>
+
+			<div class="col-xs-4 offset-4">
+				<p class="lead marginbottom">To :
+					{{user.clientNom}}
+					{{user.clientPrenom}}</p>
+
+				<p>{{user.clientAdresse}}</p>
+				{% if user.clientAdresse2 %}
+					<p>{{user.clientAdresse2}}</p>
+				{% endif %}
+
+				<p>{{user.clientCp}},
+					{{user.clientVille}}</p>
+				<p>{{user.clientTel}}</p>
+				<p>{{user.clientMail}}</p>
+
+			</div>
+
+
+		</div>
+
+		<div class="row table-row">
+			<table id="fTable" class="table table-striped container">
+				<thead>
+					<tr>
+						<th class="text-center" style="width:5%">#</th>
+						<th style="width:5%">fichier</th>
+						<th class="text-right" style="width:15%">durée du fichier</th>
+						<th class="text-right" style="width:15%">prix unitaire</th>
+						<th class="text-right" style="width:15%">Total</th>
+
+					</tr>
+				</thead>
+				<tbody id="fTbody">
+					<tr>
+						<td class="text-center">1</td>
+						<td class="text-right">Forfait</td>
+						<td class="text-right">1</td>
+						<td class="text-right">15 €</td>
+						<td class="text-right">15 €</td>
+					</tr>
+					{% set unitprice = [] %}
+
+
+					{% for item in devis %}
+						{% if item.duration  is defined %}
+							<tr>
+								<td class="text-center">
+									{% set counter = ( counter | default(1) ) + 1 %}
+									{{ counter  }}
+								</td>
+								<td class="text-right">
+									nom :
+									{{item.name}}
+								</td>
+								<td class="text-right">
+									durée :
+									{{item.duree}}
+								</td>
+								<td class="text-right">
+									1.99 €
+								</td>
+								<td class="text-right">
+									{% set prixunit = (((item.duration)/60)*1.99)|round(2, 'ceil') %}
+									{% set unitprice = unitprice|merge([prixunit]) %}
+
+
+									{# {{unitprice}} #}
+
+									{{(((item.duration)/60)*1.99)|round(2, 'ceil')}}
+									{{item.duration}}
+								</td>
+							</tr>
+
+						{% endif %}
+					{% endfor %}
+				</tbody>
+			</tbody>
+		</table>
+
+	</div>
+
+	<div class="row justify-content-around">
+
+		<div class="col-xs-6">
+
+			<p class=" text-left lead marginbottom">Attention, ces tarifs sont à titre indicatif et sont susceptible de changer !</p>
+		</div>
+		<div class="col-xs-6">
+
+
+			{% set prixttht = 15 %}
+			{% for prixunit in unitprice %}
+				{% set prixttht = prixttht + prixunit %}
+
+			{% endfor %}
+			<p id="httotal">
+				Total HT :
+				{{prixttht}}
+			</p>
+			<p id="tva">
+				{% set tva = ((prixttht) * 0.20) %}
+
+				Total TVA :
+				{{tva}}</p>
+			<p id="ttctotal">
+				{% set ttttc = (prixttht + tva) %}
+				Total TTC :
+				{{ttttc}}
+			</p>
+		</div>
+	</div>
+	<div>
+
+		{% for item in devis %}
+
+			{% if not (item.duration is defined) %}
+				<h4>Autres fichier</h4>
+				<p>Nom du fichier :
+					{{item.fichier}}</p>
+				{% if item.details is same as(null) %}
+					<p>
+						commentaire : aucun commentaire
+					</p>
+				{% else %}
+					<p>
+						commentaire :
+						{{item.details}}
+					</p>
+				{% endif %}
+
+			{% endif %}
+		{% endfor %}
+	</div>
+
+
+	{# <div class="container-fluid">
+																																					<div id="title">
+																																						<h4>Des documents ont été envoyés par</h4>
+																																						<p>{{user.clientNom}}</p>
+																																					</div>
+																																					<div class="container">
+																																						<table id="video">
+																																			
+																																							{% for file in files %}
+																																			
+																																								{% if file.itmDuree != null %}
+																																			
+																																									<ul>
+																																										<li>titre :
+																																											{{file.itmFichier}}</li>
+																																										{% if file.itmTxtClientLg1 is same as(null) %}
+																																											<li>
+																																												commentaire : aucun commentaire
+																																											</li>
+																																										{% else %}
+																																											<li>
+																																												commentaire :
+																																												{{file.itmTxtClientLg1}}
+																																											</li>
+																																										{% endif %}
+																																			
+																																									</ul>
+																																								{% endif %}
+																																							{% endfor %}
+																																						</table>
+																																					</div>
+																																					<div id="img">
+																																						{% for file in files %}
+																																							{% if file.itmDuree is same as(null) %}
+																																								<ul>
+																																									<li>titre :
+																																										{{file.itmFichier}}
+																																									</li>
+																																									{% if file.itmTxtClientLg1 is same as(null) %}
+																																										<li>
+																																											commentaire : aucun commentaire
+																																										</li>
+																																									{% else %}
+																																										<li>
+																																											commentaire :
+																																											{{file.itmTxtClientLg1}}
+																																										</li>
+																																									{% endif %}
+																																			
+																																								</ul>
+																																							{% endif %}
+																																						{% endfor %}
+																																					</div>
+																																				</div> #}
+{% endblock %}

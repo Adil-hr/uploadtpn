@@ -39,28 +39,33 @@ class TbltranscriptionuploadRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Tbltranscriptionupload[] Returns an array of Tbltranscriptionupload objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('t.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    //    /**
+    //     * @return Tbltranscriptionupload[] Returns an array of Tbltranscriptionupload objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('t')
+    //            ->andWhere('t.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('t.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
 
-//    public function findOneBySomeField($value): ?Tbltranscriptionupload
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+
+    public function findFilesSentToday($user, $today)
+    {
+        //SELECT * FROM `tbltranscriptionupload` WHERE itm_date = CURRENT_DATE;
+
+
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.itmDate = :today and t.Tblclient = :user')
+            ->setParameter('today', $today)
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
+        //->getSql();
+    }
 }

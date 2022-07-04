@@ -1,0 +1,32 @@
+* {
+    box-sizing: border-box;
+}
+.container-fluid {
+    width: 60%;
+    margin: auto;
+}
+
+#title {
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 8px 15px;
+    margin-top: 0px;
+    margin-bottom: 25px;
+    background-color: #000;
+}
+#video {
+    padding: 0 15px;
+}
+ul {
+    padding: 0 0 0 30px;
+    margin: 0;
+    counter-reset: li;
+}
+li {
+    border-bottom: 1px solid #d3d3d3;
+    margin-bottom: 10px;
+    min-height: 50px;
+    padding-bottom: 15px;
+    position: relative;
+}

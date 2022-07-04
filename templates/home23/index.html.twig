@@ -1,0 +1,207 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tozscripteurs
+{% endblock %}
+
+{% block body %}
+
+
+<div
+	id="body">
+
+	{#																																	<div id="droparea">
+																																															<div>droparea</div>
+																																															<input type="file" href="javascript:;">
+																																												
+																																														</div> 
+																																														#}
+
+	<div id="container" class="container">
+		<div class="row">
+			<div class="col-6">
+				<div id="drop-area">
+
+					<p>Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</p>
+					<input type="file" id="fileElem">
+					<label class="button" for="fileElem">Select some files</label>
+
+
+				</div>
+				<div id='audio'></div>
+				<div id="filelist"></div>
+				<a id="upload" type="submit" href="javascript:;">Envoyer</a>
+				<div class="col">
+					<input type="hidden" id="file_ext" name="file_ext" value="{{10}}">
+				</div>
+				<div class="col">
+					<div id="console"></div>
+				</div>
+			</div>
+			<div
+				class="col-12">
+				{# {{ form_start(form) }} #}
+				<table id="table"></table>
+				{# {{ form_end(form) }}#}
+			</div>
+		</div>
+	</div>
+</div>
+{# <div>
+																										<input type='text' name='f_du' id='f_du'/>seconds<br>
+																									</div> #}
+
+{# <div class="row">
+
+
+	<div class="col">
+
+		<h1>Envoi de fichier</h1>
+
+
+		<div id="plupload">
+			<div id="dropzone">
+				<p>Déposez vos fichiers ici</p>
+				<span class="or">ou</span>
+				<a id="browse">Parcourir</a>
+				<input type="file" name="fileupload" id="fileinput"> 
+			</div>
+		</div>
+		<pre id="infos"></pre>
+	
+		<table id="tablelist"></table> 
+	</div> #}
+
+{# {{form(form)}} #}
+
+{# <div class="col">
+																																																																																																								{{ form_label(form.itmTitreLg1, 'titre') }}
+																																																																																																								{{ form_widget(form.itmTitreLg1, { 'id': 'titre' }) }}
+																																																																																																		
+																																																																																																							</div>
+																																																																																																						</fieldset>
+																																																																																																						<div class="col">
+																																																																																																							{{ form_label(form.itmTxtClientLg1, 'Détails') }}
+																																																																																																							{{form_widget(form.itmTxtClientLg1,{ 'id': 'itmtxtclientlg1' })}}
+																																																																																																		
+																																																																																																						</div>
+																																																																																																						<fieldset disabled="disabled">
+																																																																																																							<div class="col">
+																																																																																																								{{ form_label(form.itmDate, 'Date de l\'envoi') }}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																			
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													
+																																																																																																							{{form_widget(form.itmDate,{ 'id': 'itmdate'}) }}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													
+																																																																																																						</div>
+																																																																																																					<div class="col">
+																																																																																																						{{form_label(form.itmTaille,'Taille du fichier')}}
+																																																																																																						{{form_widget(form.itmTaille,{ 'id': 'itmtaille' })}}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													
+																																																																																																					</div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													
+																																																																																																					<div class="col">
+																																																																																																						{{form_label(form.itmDuree,'durée du fichier')}}
+																																																																																																						{{form_widget(form.itmDuree,{ 'id': 'itmduree' })}}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													
+																																																																																																					</div>
+																																																																																																					
+																																																																																																					<div class="col">
+																																																																																																						{{ form_label(form.itmATranscrire, 'A transcrire') }}
+																																																																																																						{{ form_widget(form.itmATranscrire,{ 'id': 'itmatranscrire' })  }}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													
+																																																																																																					</div>
+																																																																																																					<div class="col">
+																																																																																																						{{ form_label(form.itmDeadlineRequise, 'Date de transcription si besoin') }}
+																																																																																																						{{ form_widget(form.itmDeadlineRequise,{ 'id': 'itmdeadline' }) }}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													
+																																																																																																					</div>
+																																																																																																					<div class="col">
+																																																																																																						{{ form_label(form.itmFichier, 'chemin fichier') }}
+																																																																																																						{{ form_widget(form.itmFichier,{ 'id': 'itmfichier' }) }}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													
+																																																																																																					</div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													
+																																																																																																		
+																																																																																																					<div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													
+																																																																																																						{{ form_row(form.valider, { 'id':"uploadform", 'href':"javascript:;",'class': "btn btn-danger"}) }}
+																																																																																																					</div>
+																																																																																																				</div> #}
+
+
+{# {{form_row(form.itmTitreLg1)}} #}
+
+
+	{# <div id="filelist"> {% block filelist %}{% endblock %}
+																</div> </div>#}
+		<script type="text/javascript"> BASE_URL = "{{ app.request.getSchemeAndHttpHost() }}";
+	</script>
+	<script type="text/javascript" src="{{asset('js/plupload.full.min.js')}}"></script>
+
+
+	<script type="text/javascript" src="{{asset('js/application.js')}}"></script>
+	<script>// const VIDEO = "video",
+// AUDIO = "audio";
+// const uploadApiCall = (file, data = {}) => { // ----- YOUR API CALL CODE HERE -----
+// document.querySelector("#duration").innerHTML = `${
+// data.duration
+// }s`;
+// document.querySelector("#type").innerHTML = data.type;
+// };
+
+// let inputEl = document.querySelector(".fileinput");
+// inputEl.addEventListener("change", (e) => {
+// let fileType = "";
+// let file = inputEl.files[0];
+// console.log(file);
+// let files = inputEl.files;
+// console.log(files);
+// // files.forEach(element => {
+// // 	console.log(file.id);
+// // });
+// if (file.type.startsWith("audio/")) {
+// fileType = AUDIO;
+// } else if (file.type.startsWith("video/")) {
+// fileType = VIDEO;
+// } else {
+// alert("Unsupported file");
+// return;
+// }
+
+
+// let dataURL = URL.createObjectURL(file);
+// let el = document.createElement(fileType);
+// el.src = dataURL;
+// el.onloadedmetadata = () => {
+// uploadApiCall(file, {
+// duration: el.duration,
+// type: fileType
+// });
+// };
+// });
+
+
+/**********************************************************************/
+// Code to get duration of audio /video file before upload - from: https://coursesweb.net/
+
+// // register canplaythrough event to #audio element to can get duration
+// let f_duration = 0; // store duration
+// document.getElementById('audio').addEventListener('canplaythrough', function (e) { // add duration in the input field #f_du
+// f_duration = Math.round(e.currentTarget.duration);
+// document.getElementById('f_du').value = f_duration;
+// URL.revokeObjectURL(obUrl);
+// });
+
+// // when select a file, create an ObjectURL with the file and add it in the #audio element
+// let obUrl;
+// document.getElementById('fileinput').addEventListener('change', function (e) {
+// let file = e.currentTarget.files[0];
+// // check file extension for audio/video type
+// if (file.name.match(/\.(avi|mp3|mp4|mpeg|ogg)$/i)) {
+// obUrl = URL.createObjectURL(file);
+// document.getElementById('audio').setAttribute('src', obUrl);
+// }
+// });
+// console.log(document.getElementById('dropzone').files.name);
+// var x = document.getElementById('fileinput');
+// console.log(x.files.duration);
+</script>{% endblock %}

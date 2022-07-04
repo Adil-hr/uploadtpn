@@ -5,19 +5,37 @@
 body {
     margin: 0;
     overflow-x: hidden;
+    font-size: 14px;
 }
-
+.panel {
+    margin: auto;
+}
 table {
-    border: 1px solid black;
     border-collapse: collapse;
+    width: 100%;
 }
 
 th,
 td {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    margin: auto;
+}
+tbody td {
+    vertical-align: middle !important;
+}
+input {
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: groove;
+    background-color: #eee;
+}
+
+.no-outline:focus {
+    outline: none;
 }
 
 /* 
@@ -71,10 +89,11 @@ td {
     font-weight: bold;
     font-size: 20px;
 }
-
-#dropzone > span {
-    display: block;
-    margin-bottom: 6px;
+#dz-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 #browse {
     border: 1px solid #bbb;
@@ -96,7 +115,7 @@ td {
     margin-bottom: 10px;
     position: relative;
 }
-div > .progressbar {
+/* div > .progressbar {
     position: absolute;
     top: 25px;
     right: 150px;
@@ -111,13 +130,9 @@ div > .progress {
     width: 10%;
     background-color: green;
     border-radius: 25px;
-}
-div > .removefile {
-    position: absolute;
-    display: flex;
+} */
+.removefile {
     justify-content: center;
-    top: 20px;
-    right: 5%;
     border-radius: 50%;
     width: 30px;
     height: 30px;
@@ -126,19 +141,18 @@ div > .removefile {
     background-color: darkred;
     color: white;
 }
-td > .progressbar {
+.progress-bar {
+    width: 1%;
+    height: 20px;
+    background-color: green;
+    border-radius: 25px;
+}
+.progress {
     width: 150px;
     height: 20px;
     background-color: #abb2bc;
     border-radius: 25px;
     background-color: #abb2bc;
-}
-td > .progress {
-    position: relative;
-    width: 10px;
-    height: 25px;
-    background-color: green;
-    border-radius: 25px;
 }
 #fileinput {
     overflow: visible;
@@ -235,17 +249,188 @@ p {
     margin-right: 10px;
     vertical-align: middle;
 }
-.button {
+#submitdiv {
+    text-align: end;
+}
+#upload,
+#clearpage {
     display: inline-block;
     padding: 10px;
-    background: #ccc;
+    background: #cc0000;
     cursor: pointer;
     border-radius: 5px;
     border: 1px solid #ccc;
+    text-decoration: none;
+    color: white;
+    margin-right: 50px;
 }
-.button:hover {
+#upload:hover,
+#clearpage:hover {
     background: #ddd;
+}
+.button {
+    padding: 10px;
+    background: #cc0000;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    color: white;
 }
 #fileElem {
     display: none;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    /*padding-top: 100px;  Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/*Invoice*/
+.invoice .top-left {
+    font-size: 65px;
+    color: #3ba0ff;
+}
+
+.invoice .top-right {
+    text-align: right;
+    padding-right: 20px;
+}
+
+.invoice .table-row {
+    margin-left: -15px;
+    margin-right: -15px;
+    margin-top: 25px;
+}
+
+.invoice .payment-info {
+    font-weight: 500;
+}
+
+.invoice .table-row .table > thead {
+    border-top: 1px solid #ddd;
+}
+
+.invoice .table-row .table > thead > tr > th {
+    border-bottom: none;
+}
+
+.invoice .table > tbody > tr > td {
+    padding: 8px 20px;
+}
+
+.invoice .invoice-total {
+    margin-right: -10px;
+    font-size: 16px;
+}
+
+.invoice .last-row {
+    border-bottom: 1px solid #ddd;
+}
+
+.invoice-ribbon {
+    width: 85px;
+    height: 88px;
+    overflow: hidden;
+    position: absolute;
+    top: -1px;
+    right: 14px;
+}
+
+.ribbon-inner {
+    text-align: center;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    position: relative;
+    padding: 7px 0;
+    left: -5px;
+    top: 11px;
+    width: 120px;
+    background-color: #cc0000;
+    font-size: 15px;
+    color: #fff;
+}
+
+.ribbon-inner:before,
+.ribbon-inner:after {
+    content: '';
+    position: absolute;
+}
+
+.ribbon-inner:before {
+    left: 0;
+}
+
+.ribbon-inner:after {
+    right: 0;
+}
+
+@media (max-width: 575px) {
+    .invoice .top-left,
+    .invoice .top-right,
+    .invoice .payment-details {
+        text-align: center;
+    }
+
+    .invoice .from,
+    .invoice .to,
+    .invoice .payment-details {
+        float: none;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .invoice p.lead,
+    .invoice .from p.lead,
+    .invoice .to p.lead,
+    .invoice .payment-details p.lead {
+        font-size: 22px;
+    }
+
+    .invoice .btn {
+        margin-top: 10px;
+    }
+}
+
+@media print {
+    .invoice {
+        width: 900px;
+        height: 800px;
+    }
 }
