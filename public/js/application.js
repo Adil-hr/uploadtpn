@@ -1,10 +1,10 @@
 var datafile = new plupload.Uploader({
     browse_button: 'fileElem', // you can pass in id...
     drop_element: "dropzone",
-    //chunk_size: '1mb',
     url: BASE_URL + '/uploadtoserver',
 
 
+    //chunk_size: '1mb',
     //container: document.getElementById('container'), // ... or DOM Element itself
     //runtimes: 'html5,flash,silverlight,html4',
     //max_file_count: 1,
@@ -29,25 +29,19 @@ var datafile = new plupload.Uploader({
 
     init: {
         PostInit: function() {
+
             document.getElementById('upload').onclick = function() {
                 datafile.start();
-                console.log(datafile);
-                datafile.refresh();
+
+                //datafile.refresh();
                 return false;
             };
         },
 
         FilesAdded: function(up, files) {
-
-            let newfiles = [];
             let submitdiv = document.getElementById('submitdiv')
             console.log(submitdiv);
             submitdiv.removeAttribute("style");
-
-            // files.forEach(element => {
-            //     console.log(element);
-            //     newfiles.push(element);
-            // });
 
 
             /************************ tableau *************************************/
@@ -81,9 +75,10 @@ var datafile = new plupload.Uploader({
             console.log(files);
             let tbody = document.createElement('tbody');
             myTable.appendChild(tbody);
-
+            console.log(typeof (plupload));
             plupload.each(files, function(file) {
                 /********************************************** */
+
                 let tr = document.createElement('tr');
                 tr.id = "tr" + file.id;
 
@@ -286,66 +281,39 @@ var datafile = new plupload.Uploader({
 
 
                 /***************************recuperation de la durée***************************/
-
-
-
-
                 if (file.type.startsWith("audio/") || file.type.startsWith("video/")) {
                     let audiotag = document.createElement('audio')
                     audiotag.id = 'audio' + file.id;
-
                     let obUrl;
                     if (file.fichier.match(/\.(avi|mp3|mp4|mpeg|ogg|mov|wmv|avchd|flv|f4v|swf|mkv|webm|html5|mpeg-2)$/i)) {
                         let blob = new Blob([file.getNative()], { type: typeof (file) });
-
                         obUrl = URL.createObjectURL(blob);
-
                         document.getElementById('audio').appendChild(audiotag);
                         document.getElementById('audio' + file.id).setAttribute('src', obUrl);
-                        //document.getElementById('audio').appendChild(duratTime)
-                        //console.log(document.getElementById('audio' + file.id));
                     }
                     let fileTo = document.getElementById('audio' + file.id);
                     if (fileTo) {
                         // store duration
-
                         document.getElementById('audio' + file.id).addEventListener('canplaythrough', function(e) {
-                            //console.log('on lit la musique');// add duration in the input field #f_du
-                            //console.log(e.currentTarget.duration);
-                            f_duration = Math.round(e.currentTarget.duration);
-                            //console.log(f_duration);
-                            // document.getElementById('txt' + file.id).value = f_duration;
-                            //document.getElementById(file.id).innerHTML += f_duration;
+                            let f_duration = Math.round(e.currentTarget.duration);
                             URL.revokeObjectURL(obUrl);
                             file['duration'] = f_duration;
                             file['duree'] = fancyTimeFormat(f_duration);
-
                             tdFTable3.innerHTML = file['duree'];
                             console.log(file['duree']);
                             console.log((file['duration'] / 60) * 1.99);
-
                             let minutDuration = file['duration'] / 60;
                             tdFTable5.innerHTML = toRound(minutDuration * 1.99, 2) + " €";
-
-                            //console.log(f_duration);
                             durat.value = fancyTimeFormat(f_duration);
-
                         })
-
                     } else {
                         durat.value = "0";
                         file['duration'] = "0";
                         file['duree'] = "0"
-
-
                     }
-
                 }
+
                 file['percent'] = file.percent;
-
-
-
-
 
 
                 /*--------------devis-----------------*/
